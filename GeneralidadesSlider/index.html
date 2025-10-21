@@ -1,0 +1,106 @@
+<style>
+  .slider-wrapper {
+    position: relative;
+    max-width: 900px;
+    height: 338px;
+    margin: 30px auto;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  /* 1) Autoplay de los slides en 9s */
+  @keyframes autoplay-slide {
+    /* visible 0–33.333%, oculto 38.333–100% */
+    0%, 25%   { opacity: 1; }
+    30%, 100% { opacity: 0; }
+  }
+
+  .slider-slide {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    opacity: 0;
+    animation: autoplay-slide 12s infinite;
+  }
+  .slider-slide.slide1 { animation-delay: 0s; z-index: 3; }
+  .slider-slide.slide2 { animation-delay: 3s; z-index: 2; }
+  .slider-slide.slide3 { animation-delay: 6s; z-index: 1;}
+  .slider-slide.slide4 { animation-delay: 9s; z-index: 0; }
+
+  .slider-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  input[type="radio"] {
+    display: none;
+  }
+
+  /* manual override (pausa autoplay si clicas) */
+  #s1:checked ~ .slider-wrapper .slide1,
+  #s2:checked ~ .slider-wrapper .slide2,
+  #s3:checked ~ .slider-wrapper .slide3,
+  #s4:checked ~ .slider-wrapper .slide4 {
+    opacity: 1;
+    z-index: 4;
+    animation: none;
+  }
+
+  .slider-nav {
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  /* 2) Animación de highlight en 9s */
+  @keyframes highlight-dot {
+    0%, 25%   { background: #70bf4b; }
+    30%, 100% { background: #aaa; }
+  }
+
+  .slider-nav label {
+    display: inline-block;
+    width: 14px; height: 14px;
+    margin: 0 5px;
+    background: #aaa;
+    border-radius: 50%;
+    cursor: pointer;
+    animation: highlight-dot 12s infinite;
+  }
+  .slider-nav label[for="s1"] { animation-delay: 0s; }
+  .slider-nav label[for="s2"] { animation-delay: 3s; }
+  .slider-nav label[for="s3"] { animation-delay: 6s; }
+  .slider-nav label[for="s4"] { animation-delay: 9s; }
+
+  /* pausa puntos al hacer click y resalta sólo el activo */
+  input[type="radio"]:checked ~ .slider-nav label {
+    animation: none;
+    background: #aaa;
+  }
+  #s1:checked ~ .slider-nav label[for="s1"],
+  #s2:checked ~ .slider-nav label[for="s2"],
+  #s3:checked ~ .slider-nav label[for="s3"],
+  #s4:checked ~ .slider-nav label[for="s4"] {
+    background: #70bf4b;
+  }
+</style>
+
+<!-- 3 inputs para 3 slides -->
+<input type="radio" name="slider" id="s1">
+<input type="radio" name="slider" id="s2">
+<input type="radio" name="slider" id="s3">
+<input type="radio" name="slider" id="s4">
+
+<div class="slider-wrapper">
+  <div class="slider-slide slide1"><img src="Images/Bienvenido.png" alt=""></div>
+  <div class="slider-slide slide2"><img src="Images/Preséntate.png" alt=""></div>
+  <div class="slider-slide slide3"><img src="Images/Foro-abierto.png" alt=""></div>
+  <div class="slider-slide slide4"><img src="Images/Importante.png" alt=""></div>
+</div>
+
+<div class="slider-nav">
+  <label for="s1"></label>
+  <label for="s2"></label>
+  <label for="s3"></label>
+  <label for="s4"></label>
+</div>
